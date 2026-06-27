@@ -11,6 +11,9 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.command(name="calc")
 async def calculate(ctx, *, expression: str):
+    # Replace comma decimals (e.g. 27,9 → 27.9)
+    expression = re.sub(r"(\d),(\d)", r"\1.\2", expression)
+
     # Strip everything except digits, decimal points, + and -
     cleaned = re.sub(r"[^\d.+\-]", "", expression)
 
